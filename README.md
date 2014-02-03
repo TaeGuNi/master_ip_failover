@@ -1,5 +1,4 @@
 # master vip failover
-=====================
 This is virtual IP failover script for MHA.
 
 

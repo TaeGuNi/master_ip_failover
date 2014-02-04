@@ -21,7 +21,6 @@
 use strict;
 use warnings FATAL => 'all';
 use Getopt::Long;
-use Net::SSH::Perl;
 
 my (
         $command,
@@ -39,8 +38,6 @@ my (
         $virtual_ip,
         $key
 );
-
-my $ssh = Net::SSH::Perl;
 
 GetOptions(
         'command=s'             => \$command,

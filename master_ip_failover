@@ -130,7 +130,7 @@ sub start_vip() {
 }
 # A simple system call that disable the VIP on the old_master
 sub stop_vip() {
-        $ssh=`ssh -p $new_master_ssh_port -T -oStrictHostKeyChecking=no $ssh_user\@$orig_master_host \"$ssh_stop_vip\"`;
+        $ssh=`ssh -p $orig_master_ssh_port -T -oStrictHostKeyChecking=no $ssh_user\@$orig_master_host \"$ssh_stop_vip\"`;
         print $ssh;
 }
 

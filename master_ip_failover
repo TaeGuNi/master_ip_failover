@@ -60,10 +60,18 @@ GetOptions(
         'key=i'                 => \$key
 );
 
+# Validation
+if ($orig_master_ssh_port ne "") {
+    $orig_master_ssh_port=22;
+}
+if ($new_master_ssh_port ne "") {
+    $new_master_ssh_port=22;
+}
+
+# Command for vip set
 my $ssh_start_vip = "/sbin/ifconfig $network_type:$key $virtual_ip up";
 my $ssh_stop_vip  = "/sbin/ifconfig $network_type:$key down";
 my $ssh_arping    = "/sbin/arping -c1 -I$network_type -s$virtual_ip $gateway";
-
 if ($ssh_user ne "root") {
         $ssh_start_vip = "sudo ".$ssh_start_vip;
         $ssh_stop_vip  = "sudo ".$ssh_stop_vip;

@@ -61,10 +61,12 @@ GetOptions(
 );
 
 # Validation
-if ($orig_master_ssh_port ne "") {
+if (defined($orig_master_ssh_port)) {
+} else {
     $orig_master_ssh_port=22;
 }
-if ($new_master_ssh_port ne "") {
+if (defined($new_master_ssh_port)) {
+} else {
     $new_master_ssh_port=22;
 }
 

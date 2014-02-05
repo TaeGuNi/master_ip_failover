@@ -9,6 +9,9 @@ alpha 0.0.2
 
 ## Manual
 
+### how to install
+copy master_ip_failover /path/to/bin/master_ip_failover
+
 ### Usage
 
 **app.cnf**

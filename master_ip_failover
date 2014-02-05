@@ -111,7 +111,8 @@ sub main {
         }
         elsif ( $command eq "status" ) {
            print "Checking the Status of the script.. OK \n";
-           `ssh $ssh_user\@$orig_master_host \" $ssh_start_vip \"`;
+           $ssh=`ssh -p $orig_master_ssh_port -T -oStrictHostKeyChecking=no $ssh_user\@$orig_master_host \" $ssh_start_vip \"`;
+           print $ssh;
            exit 0;
         }
         else {
@@ -122,12 +123,15 @@ sub main {
 
 # A simple system call that enable the VIP on the new master
 sub start_vip() {
-        `ssh $ssh_user\@$new_master_host \"$ssh_start_vip\"`;
-        `ssh $ssh_user\@$new_master_host \"$ssh_arping\"`;
+        $ssh=`ssh -p $new_master_ssh_port -T -oStrictHostKeyChecking=no $ssh_user\@$new_master_host \"$ssh_start_vip\"`;
+        print $ssh;
+        $ssh=`ssh -p $new_master_ssh_port -T -oStrictHostKeyChecking=no $ssh_user\@$new_master_host \"$ssh_arping\"`;
+        print $ssh;
 }
 # A simple system call that disable the VIP on the old_master
 sub stop_vip() {
-        `ssh $ssh_user\@$orig_master_host \"$ssh_stop_vip\"`;
+        $ssh=`ssh -p $new_master_ssh_port -T -oStrictHostKeyChecking=no $ssh_user\@$orig_master_host \"$ssh_stop_vip\"`;
+        print $ssh;
 }
 
 sub usage {

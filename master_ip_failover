@@ -99,46 +99,54 @@ sub main {
     }
 
     if (defined($command) && ($command eq "stop" || $command eq "stopssh")) {
-       # $orig_master_host, $orig_master_ip, $orig_master_port are passed.
-       # If you manage master ip address at global catalog database,
-       # invalidate orig_master_ip here.
-       my $exit_code = 1;
-       eval {
-           print "Disabling the VIP on old master: $orig_master_host \n";
-           &stop_vip();
-           $exit_code = 0;
-       };
-       if ($@) {
-           warn "Got Error: $@\n";
-           exit $exit_code;
-       }
-       exit $exit_code;
+        # $orig_master_host, $orig_master_ip, $orig_master_port are passed.
+        # If you manage master ip address at global catalog database,
+        # invalidate orig_master_ip here.
+        my $exit_code = 1;
+        eval {
+            if (defined($orig_master_host)) {
+                print "Disabling the VIP on old master: $orig_master_host \n";
+                &stop_vip();
+            } else {
+                &usage();
+            }
+            $exit_code = 0;
+        };
+        if ($@) {
+            warn "Got Error: $@\n";
+            exit $exit_code;
+        }
+        exit $exit_code;
     }
     elsif (defined($command) && $command eq "start") {
-       # all arguments are passed.
-       # If you manage master ip address at global catalog database,
-       # activate new_master_ip here.
-       # You can also grant write access (create user, set read_only=0, etc) here.
-       my $exit_code = 1;
-       eval {
-           print "Enabling the VIP - $virtual_ip on the new master - $new_master_host \n";
-           &start_vip();
-           $exit_code = 0;
-       };
-       if ($@) {
-           warn $@;
-           exit $exit_code;
-       }
-       exit $exit_code;
+        # all arguments are passed.
+        # If you manage master ip address at global catalog database,
+        # activate new_master_ip here.
+        # You can also grant write access (create user, set read_only=0, etc) here.
+        my $exit_code = 1;
+        eval {
+            if (defined($virtual_ip) && defined($new_master_host)) {
+                print "Enabling the VIP - $virtual_ip on the new master - $new_master_host \n";
+                &start_vip();
+            } else {
+                &usage();
+            }
+            $exit_code = 0;
+        };
+        if ($@) {
+            warn $@;
+            exit $exit_code;
+        }
+        exit $exit_code;
     }
     elsif (defined($command) && $command eq "status") {
-       print "Checking the Status of the script.. OK \n";
-       &vip_status();
-       exit 0;
+        print "Checking the Status of the script.. OK \n";
+        &vip_status();
+        exit 0;
     }
     else {
-       &usage();
-       exit 1;
+        &usage();
+        exit 1;
     }
 }
 

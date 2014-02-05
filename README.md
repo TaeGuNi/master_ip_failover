@@ -21,6 +21,7 @@ copy master_ip_failover /path/to/bin/master_ip_failover
 
 1. use ssh-keygen
 2. use sshpass command
+
 > if you choice it.
 > change line 122, 134, 136, 141
 

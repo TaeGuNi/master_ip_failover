@@ -75,7 +75,7 @@ my (
     $ssh_stop_vip,
     $ssh_arping
 );
-if (defined($network_type) && defined($key) && defined($ssh_status_vip) && defined($virtual_ip)) {
+if (defined($network_type) && defined($key) && defined($virtual_ip)) {
     $ssh_status_vip = "/sbin/ifconfig";
     $ssh_start_vip = "$ssh_status_vip $network_type:$key $virtual_ip up";
     $ssh_stop_vip  = "$ssh_status_vip $network_type:$key down";
